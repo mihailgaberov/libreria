@@ -140,6 +140,7 @@ export default {
       evt.preventDefault();
       this.$refs.addBookModal.hide();
       this.initForm();
+      this.showMessage = false;
     },
   },
   created() {
