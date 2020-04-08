@@ -49,7 +49,7 @@ def single_book(book_id):
     response_object = {'status': 'success'}
     if request.method == 'PUT':
         post_data = request.get_json()
-        remove_book(book_id)
+        db.remove_book(book_id)
         BOOKS.append({
             'id': uuid.uuid4().hex,
             'title': post_data.get('title'),
@@ -58,17 +58,9 @@ def single_book(book_id):
         })
         response_object['message'] = 'Book updated!'
     if request.method == 'DELETE':
-        remove_book(book_id)
+        db.remove_book(book_id)
         response_object['message'] = 'Book removed!'
     return jsonify(response_object)
-
-def remove_book(book_id):
-    for book in BOOKS:
-        if book['id'] == book_id:
-            BOOKS.remove(book)
-            return True
-    return False
-
 
 if __name__ == '__main__':
     app.run()

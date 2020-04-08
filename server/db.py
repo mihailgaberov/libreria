@@ -1,8 +1,6 @@
 from pymongo import MongoClient
 from flask import jsonify
-from bson.json_util import loads
-
-
+from bson.objectid import ObjectId
 
 class DB:
     def __init__(self):
@@ -27,6 +25,6 @@ class DB:
         resp['books'] = books
         return jsonify(resp)
 
-    def delete(id):
-        print('[*] Deleting a record with id: ', id)
-        # self.db.deleteOne()
+    def remove_book(self, id):
+        print('[*] Removing a record with id: ', id)
+        self.db.books.delete_one({ '_id': ObjectId(id) })
