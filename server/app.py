@@ -37,27 +37,12 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 # sanity check route
-@app.route('/ping', methods=['GET'])
-def ping_pong():
-    return jsonify('pong!')
+def test():
+    return jsonify('Miki stana...')
+app.add_url_rule('/', 'test', test)
 
-@app.route('/books', methods=['GET', 'POST'])
-def all_books():
-    return db.get_all()
-# def all_books():
-#     response_object = {'status': 'success'}
-#     if request.method == 'POST':
-#         post_data = request.get_json()
-#         BOOKS.append({
-#             'id': uuid.uuid4().hex,
-#             'title': post_data.get('title'),
-#             'author': post_data.get('author'),
-#             'read': post_data.get('read')
-#         })
-#         response_object['message'] = 'Book added!'
-#     else:
-#         response_object['books'] = BOOKS
-#     return jsonify(response_object)
+# @app.route('/books', methods=['GET', 'POST'])
+app.add_url_rule('/books', 'get_all', db.get_all)
 
 @app.route('/books/<book_id>', methods=['PUT', 'DELETE'])
 def single_book(book_id):
