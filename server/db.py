@@ -14,23 +14,12 @@ class DB:
         cursor = self.db.books.find({})
         books = []
         for doc in cursor:
-          print('[*] Adding a book to the array to be returned: ', doc['title'])
-          book = {}
-          book['title'] = doc['title']
-          book['author'] = doc['author']
-          book['read'] = doc['read']
-          books.append(book)
+            print('[*] Adding a book to the array to be returned: ', doc['title'])
+            book = {}
+            book['title'] = doc['title']
+            book['author'] = doc['author']
+            book['read'] = doc['read']
+            books.append(book)
 
-        #resp['books'] = BOOKS
         resp['books'] = books
         return jsonify(resp)
-        # cursor = self.db.books.find({})
-        # books = []
-
-        # for doc in cursor:
-        #     print('[*] Adding a book to the array to be returned: ', doc['title'])
-        #     books.append(doc)
-
-        # resp = {'status': 'success'}
-        # resp['books'] = books
-        # return resp
