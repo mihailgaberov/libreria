@@ -36,7 +36,7 @@
                   @click="editBook(book)">
                   Update
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" @click="onDeleteBook(book)">
+                <button type="button" class="btn btn-danger btn-sm" v-b-modal.confirmation-modal>
                   Delete
                 </button>
               </div>
@@ -109,6 +109,16 @@
           <b-button type="submit" variant="primary">Update</b-button>
           <b-button type="reset" variant="danger">Cancel</b-button>
         </b-button-group>
+      </b-form>
+    </b-modal>
+    <b-modal
+      ref="confirmationModal"
+      id="confirmation-modal"
+      title="Are you sure?"
+      hide-footer>
+      <b-form @submit="onDeleteBook" @reset="onReset" class="w-100">
+        <b-button type="submit" variant="primary">Yeah, go for it!</b-button>
+        <b-button type="reset" variant="danger">Nah!</b-button>
       </b-form>
     </b-modal>
   </div>
@@ -193,6 +203,7 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       this.$refs.addBookModal.hide();
+      this.$refs.confirmationModal.hide();
       this.initForm();
       this.showMessage = false;
     },
