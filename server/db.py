@@ -25,7 +25,7 @@ class DB:
         resp['books'] = books
         return jsonify(resp)
 
-~~    def add_book(self, payload):
+    def add_book(self, payload):
         print('[*] Adding a record to database: ', payload)
         self.db.books.insert_one(payload)
 

@@ -6,7 +6,7 @@
         <hr />
         <br />
         <br />
-        <alert :message="message" v-if="showMessage"></alert>
+        <alert :message="message" ref="alert"></alert>
         <button type="button" class="btn btn-success btn-sm" v-b-modal.book-modal>Add Book</button>
         <br />
         <br />
@@ -128,7 +128,6 @@ export default {
         read: [],
       },
       message: '',
-      showMessage: false,
       editForm: {
         id: '',
         title: '',
@@ -160,7 +159,7 @@ export default {
         .then(() => {
           this.getBooks();
           this.message = 'Book added!';
-          this.showMessage = true;
+          this.$refs.alert.showAlert();
         })
         .catch((error) => {
           // eslint-disable-next-line
@@ -185,7 +184,7 @@ export default {
       const payload = {
         title: this.addBookForm.title,
         author: this.addBookForm.author,
-        read, // property shorthand
+        read,
       };
       this.addBook(payload);
       this.initForm();
@@ -193,9 +192,7 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       this.$refs.addBookModal.hide();
-      this.$refs.confirmationModal.hide();
       this.initForm();
-      this.showMessage = false;
     },
     onSubmitUpdate(evt) {
       evt.preventDefault();
@@ -218,7 +215,7 @@ export default {
         .then(() => {
           this.getBooks();
           this.message = 'Book updated!';
-          this.showMessage = true;
+          this.$refs.alert.showAlert();
         })
         .catch((error) => {
           // eslint-disable-next-line
@@ -238,7 +235,7 @@ export default {
         .then(() => {
           this.getBooks();
           this.message = 'Book removed!';
-          this.showMessage = true;
+          this.$refs.alert.showAlert();
         })
         .catch((error) => {
           // eslint-disable-next-line
@@ -262,6 +259,7 @@ export default {
           if (value) this.removeBook(book.id);
         })
         .catch((err) => {
+          // eslint-disable-next-line
           console.error('An error occurred when confirming removing a book', err);
         });
     },
