@@ -36,7 +36,7 @@
                   @click="editBook(book)">
                   Update
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" v-b-modal.confirmation-modal>
+                <button type="button" class="btn btn-danger btn-sm" @click="onDeleteBook(book)">
                   Delete
                 </button>
               </div>
@@ -111,8 +111,7 @@
         </b-button-group>
       </b-form>
     </b-modal>
-    <b-modal
-      ref="confirmationModal"
+    <!--<b-modal ref="confirmationModal"
       id="confirmation-modal"
       title="Are you sure?"
       hide-footer>
@@ -120,7 +119,7 @@
         <b-button type="submit" variant="primary">Yeah, go for it!</b-button>
         <b-button type="reset" variant="danger">Nah!</b-button>
       </b-form>
-    </b-modal>
+    </b-modal>-->
   </div>
 </template>
 
@@ -257,7 +256,23 @@ export default {
         });
     },
     onDeleteBook(book) {
-      this.removeBook(book.id);
+      this.$bvModal.msgBoxConfirm('Are you sure?', {
+        title: 'Confirmation',
+        okTitle: 'Yes, go on!',
+        cancelTitle: 'Nah! Forget about it...',
+        size: 'sm',
+        buttonSize: 'sm',
+        cancelVariant: 'secondary',
+        headerClass: 'p-2 border-bottom-0',
+        footerClass: 'p-2 border-top-0',
+        centered: true,
+      })
+        .then((value) => {
+          if (value) this.removeBook(book.id);
+        })
+        .catch((err) => {
+          console.error('An error occurred when confirming removing a book', err);
+        });
     },
   },
   created() {
