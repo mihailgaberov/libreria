@@ -111,15 +111,6 @@
         </b-button-group>
       </b-form>
     </b-modal>
-    <!--<b-modal ref="confirmationModal"
-      id="confirmation-modal"
-      title="Are you sure?"
-      hide-footer>
-      <b-form @submit="onDeleteBook" @reset="onReset" class="w-100">
-        <b-button type="submit" variant="primary">Yeah, go for it!</b-button>
-        <b-button type="reset" variant="danger">Nah!</b-button>
-      </b-form>
-    </b-modal>-->
   </div>
 </template>
 
