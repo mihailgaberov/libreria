@@ -41,9 +41,20 @@ def test():
     return jsonify('Miki stana...')
 app.add_url_rule('/', 'test', test)
 
-# @app.route('/books', methods=['GET', 'POST'])
+# Get all books
 app.add_url_rule('/books', 'get_all', db.get_all)
 
+# Add a new books
+@app.route('/books/add', methods=['POST'])
+def add_book():
+    response_object = {'status': 'success'}
+    if request.method == 'POST':
+        post_data = request.get_json()
+        db.add_book(post_data)
+        response_object['message'] = 'Book added!'
+    return jsonify(response_object)
+
+# Update or delete a book
 @app.route('/books/<book_id>', methods=['PUT', 'DELETE'])
 def single_book(book_id):
     response_object = {'status': 'success'}

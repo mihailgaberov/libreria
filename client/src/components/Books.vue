@@ -163,7 +163,7 @@ export default {
         });
     },
     addBook(payload) {
-      const path = 'http://localhost:5000/books';
+      const path = 'http://localhost:5000/books/add';
       axios
         .post(path, payload)
         .then(() => {

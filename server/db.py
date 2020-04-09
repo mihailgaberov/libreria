@@ -25,6 +25,10 @@ class DB:
         resp['books'] = books
         return jsonify(resp)
 
+~~    def add_book(self, payload):
+        print('[*] Adding a record to database: ', payload)
+        self.db.books.insert_one(payload)
+
     def remove_book(self, id):
         print('[*] Removing a record with id: ', id)
         self.db.books.delete_one({ '_id': ObjectId(id) })
