@@ -116,7 +116,7 @@
 
 <script>
 import axios from 'axios';
-import Alert from './Alert';
+import Alert from './Alert.vue';
 
 export default {
   data() {
