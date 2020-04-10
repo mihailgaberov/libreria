@@ -14,7 +14,7 @@ class DB:
         cursor = self.db.books.find({})
         books = []
         for doc in cursor:
-            print('[*] Adding a book to the array to be returned: ', doc['title'])
+            print('[*] Getting a record from database: ', doc['title'])
             book = {}
             book['id'] = str(doc['_id'])
             book['title'] = doc['title']
@@ -28,6 +28,12 @@ class DB:
     def add_book(self, payload):
         print('[*] Adding a record to database: ', payload)
         self.db.books.insert_one(payload)
+
+    def update_book(self, id, payload):
+        print('[*] Updating a record with id: ', id)
+        query = { '_id': ObjectId(id) }
+        self.db.books.replace_one(query, payload)
+
 
     def remove_book(self, id):
         print('[*] Removing a record with id: ', id)
