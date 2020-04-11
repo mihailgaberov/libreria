@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: python server/app.py
+  web: python app.py
