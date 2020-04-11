@@ -1,11 +1,20 @@
 from pymongo import MongoClient
 from flask import jsonify
 from bson.objectid import ObjectId
+import os
+from dotenv import load_dotenv
+import urllib
+load_dotenv()
+
+
 
 class DB:
     def __init__(self):
         print('[*] Initializing DB object')
-        client = MongoClient('mongodb://localhost:27017/')
+        DB_USER = os.getenv('DB_USER')
+        DB_PASS = os.getenv('DB_PASS')
+        DB_URL = os.getenv('DB_URL')
+        client = MongoClient('mongodb://' + DB_USER + ':' + urllib.parse.quote(DB_PASS)  + DB_URL)
         self.db = client.libreria
 
     def get_all(self):
