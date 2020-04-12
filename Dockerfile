@@ -19,9 +19,11 @@ RUN apk update && apk add --no-cache python3 && \
     rm -r /root/.cache
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 COPY --from=build-vue /app/dist /usr/share/nginx/html
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.confl
 COPY ./server/requirements.txt ./
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
 COPY ./server .
-CMD python app.py
+CMD gunicorn -b 0.0.0.0:5000 app:app --daemon && \
+    sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
+    nginx -g 'daemon off;'
